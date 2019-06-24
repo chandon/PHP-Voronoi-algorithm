@@ -73,11 +73,15 @@ class Voronoi
 		
 		// Initialize site event queue
 		$siteEvents = array_slice($sites, 0);
-		usort($siteEvents, function($a,$b){
-			$r = $b->y - $a->y;
-			if ($r) {return $r;}
-			return $b->x - $a->x;
-		});
+        usort($siteEvents, function($a,$b){
+            $r = $b->y - $a->y;
+            if ($r>0) {return 1;}
+            elseif ($r<0) { return -1;}
+            $s=$b->x - $a->x;
+            if ($s>0) { return 1; } 
+            elseif ($s<0) { return -1; }
+            return 0;
+        });
 	
 		// process queue
 		$site = array_pop($siteEvents);
